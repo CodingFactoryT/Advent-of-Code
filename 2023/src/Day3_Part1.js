@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <script>
-        const input = `.....664...998........343...............851............................2............414.....................3....................948.164....
+const input = `.....664...998........343...............851............................2............414.....................3....................948.164....
 ......*..................*617....885...*....................-......250.........536..........470...#..................../4......=.....*......
 ...407...570..218................-.....654........776.....920.........*753...........566......*..347.....61.-979..786........935...42.......
 .......%....*...$..311.102..........................*.907.....723...............622-....*..354..............................................
@@ -147,65 +138,62 @@
 ......87...318......472...........%449.....=............720.........%.................257...29...........*.........-.....656................
 ..666........*....*.....920.....................................................&......*........................759..........875$...........
 ......138....366..797...........584.......247.........................427..206..843...618.....530......................................172..`.split("\n");
-        let sum = 0;
+let sum = 0;
 
-        for(let i = 0; i < input.length; i++) {
-            for(let j = 0; j < input[0].length; j++) {
-                if(isDigit(input[i][j])) {
-                    const [number, numberLength] = getNumberWithLength(i, j, input);
-                    if(isNumberAdjacentToSymbol(i, j, numberLength, input)) {
-                        sum += Number(number);
-                    }
-                    j += numberLength - 1;
-                }
+for(let i = 0; i < input.length; i++) {
+    for(let j = 0; j < input[0].length; j++) {
+        if(isDigit(input[i][j])) {
+            const [number, numberLength] = getNumberWithLength(i, j, input);
+            if(isNumberAdjacentToSymbol(i, j, numberLength, input)) {
+                sum += Number(number);
             }
+            j += numberLength - 1;
+        }
+    }
+}
+
+console.log(sum);
+
+function getNumberWithLength(indexI, startingIndexJ, array) {
+    let number = "";
+    while(startingIndexJ < array[0].length && isDigit(array[indexI][startingIndexJ])) {    //as long as there are digits
+        number += input[indexI][startingIndexJ];
+        startingIndexJ++;
+    }
+
+    return [number, number.length];
+}
+
+function isNumberAdjacentToSymbol(indexI, indexJ, numberLength, array) {
+    let isAdjacent = false;
+    if(indexJ > 0 && isSymbol(array[indexI][indexJ-1])) {    //check character left of the number
+        isAdjacent = true;
+    }
+    if(indexJ + numberLength < array[0].length && isSymbol(array[indexI][indexJ + numberLength])) {    //check character right of the number
+        isAdjacent = true;
+    }
+
+    for(let p = indexJ - 1; p < indexJ + numberLength + 1; p++) {
+        if(indexI > 0 && isSymbol(array[indexI - 1][p])) {  //check top of each digit
+            isAdjacent = true;
+            break;
         }
 
-        console.log(sum);
-
-        function getNumberWithLength(indexI, startingIndexJ, array) {
-            let number = "";
-            while(startingIndexJ < array[0].length && isDigit(array[indexI][startingIndexJ])) {    //as long as there are digits
-                number += input[indexI][startingIndexJ];
-                startingIndexJ++;
-            }
-
-            return [number, number.length];
+        if(indexI < array[0].length - 1 && isSymbol(array[indexI + 1][p])) {  //check bottom of each digit
+            isAdjacent = true;
+            break;
         }
+    }
 
-        function isNumberAdjacentToSymbol(indexI, indexJ, numberLength, array) {
-            let isAdjacent = false;
-            if(indexJ > 0 && isSymbol(array[indexI][indexJ-1])) {    //check character left of the number
-                isAdjacent = true;
-            }
-            if(indexJ + numberLength < array[0].length && isSymbol(array[indexI][indexJ + numberLength])) {    //check character right of the number
-                isAdjacent = true;
-            }
+    return isAdjacent;
+}
 
-            for(let p = indexJ - 1; p < indexJ + numberLength + 1; p++) {
-                if(indexI > 0 && isSymbol(array[indexI - 1][p])) {  //check top of each digit
-                    isAdjacent = true;
-                    break;
-                }
+function isDigit(character) {
+    if(!character) return false;
+    return character.match(/[0-9]/);
+}
 
-                if(indexI < array[0].length - 1 && isSymbol(array[indexI + 1][p])) {  //check bottom of each digit
-                    isAdjacent = true;
-                    break;
-                }
-            }
-
-            return isAdjacent;
-        }
-
-        function isDigit(character) {
-            if(!character) return false;
-            return character.match(/[0-9]/);
-        }
-
-        function isSymbol(character) {
-            if(!character) return false;
-            return !character.match(/[0-9, \.]/);
-        }
-    </script>
-</body>
-</html>
+function isSymbol(character) {
+    if(!character) return false;
+    return !character.match(/[0-9, \.]/);
+}

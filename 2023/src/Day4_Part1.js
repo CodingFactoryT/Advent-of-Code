@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <script>
-        const input = `Card   1: 79 93 21 74 81 76 17 89  3  5 |  5 67 87 81 76 35 79 21 15 80  8 74 99 28  3 23 19 42 89 16 22 77 92 70 34
+const input = `Card   1: 79 93 21 74 81 76 17 89  3  5 |  5 67 87 81 76 35 79 21 15 80  8 74 99 28  3 23 19 42 89 16 22 77 92 70 34
 Card   2: 83 16 24 23 59 70 14 57 74 53 | 79 82 70 23 61 14 74 57 36 37 59 72 83 16  3  2 28 63 50 60 38 86 97 24 53
 Card   3: 12 77 13 14 48 55 69  4 18 81 | 69  7 94 88 18 73 55 48 49 81 14 21 12 15  5 27 22 84 51 52 13 77  4 57 17
 Card   4: 32 35 57 27 15  5 16 40 36 46 | 84 47 76 35 83  5 22 15 72 48 57 33 46 53 43 16 10 65 32 51 36 44 40 27 97
@@ -226,29 +217,26 @@ Card 216: 18 71  4 89 17 31 63 28 25 20 | 67 97  6 76  3 95 30 75 99 26 27 32 21
 Card 217: 54 65 75 13 46  8 37 25 95 82 | 57 14 83 33 69 47 68 64  4 21 17 92  2 48 30 70 62 50 36  7 72 66 41 85 97
 Card 218: 68 97 66 41 88 16 65 31 23 63 | 29 67 55 64 91  4 12 83  1 40 74 94 58 81 98 82 78 70 26 34 96 14 36 50 56`.split("\n");
 
-        const regex = /Card[\s]+([0-9]+):[\s]+((?:[0-9]+(?:[\s]+)?)+)\|[\s]*((?:[0-9]+(?:[\s]+)?)+)/;
-        let sum = 0;
-        input.forEach((entry) => {
-            const matches = regex.exec(entry);
-            const cardNumber = matches[1];
-            const winningNumbers = matches[2].trim().replace(/\s+/g, " ").split(" ");
-            const havingNumbers = matches[3].trim().replace(/\s+/g, " ").split(" ");
-            
-            let cardValue = 0;
+const regex = /Card[\s]+([0-9]+):[\s]+((?:[0-9]+(?:[\s]+)?)+)\|[\s]*((?:[0-9]+(?:[\s]+)?)+)/;
+let sum = 0;
+input.forEach((entry) => {
+    const matches = regex.exec(entry);
+    const cardNumber = matches[1];
+    const winningNumbers = matches[2].trim().replace(/\s+/g, " ").split(" ");
+    const havingNumbers = matches[3].trim().replace(/\s+/g, " ").split(" ");
+    
+    let cardValue = 0;
 
-            havingNumbers.forEach((number) => {
-                if(winningNumbers.includes(number)) {
-                    if(cardValue == 0) {
-                        cardValue++;
-                    } else {
-                        cardValue *= 2;
-                    }
-                }
-            });
+    havingNumbers.forEach((number) => {
+        if(winningNumbers.includes(number)) {
+            if(cardValue == 0) {
+                cardValue++;
+            } else {
+                cardValue *= 2;
+            }
+        }
+    });
 
-            sum += cardValue;
-        });
-        console.log(sum);
-    </script>
-</body>
-</html>
+    sum += cardValue;
+});
+console.log(sum);

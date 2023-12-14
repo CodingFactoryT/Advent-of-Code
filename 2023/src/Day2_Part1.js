@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <script>
-        const input = `Game 1: 12 blue, 15 red, 2 green; 17 red, 8 green, 5 blue; 8 red, 17 blue; 9 green, 1 blue, 4 red
+const input = `Game 1: 12 blue, 15 red, 2 green; 17 red, 8 green, 5 blue; 8 red, 17 blue; 9 green, 1 blue, 4 red
 Game 2: 6 red, 6 blue, 2 green; 1 blue, 1 red; 6 green, 1 red, 10 blue
 Game 3: 1 green, 2 blue; 7 blue, 4 green; 2 green, 1 blue; 10 blue, 4 green; 4 blue; 1 green, 7 blue, 1 red
 Game 4: 16 red, 12 blue, 10 green; 15 red, 5 green, 6 blue; 10 green, 15 red, 12 blue
@@ -108,44 +99,28 @@ Game 98: 2 blue, 14 green, 2 red; 7 green, 1 blue; 1 blue, 1 red, 3 green; 2 red
 Game 99: 3 green, 8 red, 7 blue; 6 red, 13 blue; 12 red, 4 green, 4 blue; 12 red, 8 green, 3 blue; 11 blue, 11 red, 4 green
 Game 100: 2 red, 13 blue, 1 green; 1 green, 12 blue; 1 red, 5 blue, 1 green; 3 blue, 3 red`.split("\n");
 
-        const regex = /Game ([0-9]+)[:] ((?:[\s]?[0-9]+ (?:green|red|blue)[,|;]?)+)/;
-        let sum = 0;
-        input.forEach((element) => {
-            const matches = regex.exec(element);
-            const gameID = matches[1];
-            const groups = matches[2].split(/,|;/);
-            let maxBlue = 0;
-            let maxRed = 0;
-            let maxGreen = 0;
-            groups.forEach((pair) => {
-                const splitPair = pair.trim().split(/\s/);
-                const amount = splitPair[0];
-                const color = splitPair[1];
-                switch(color) {
-                    case "blue":
-                        if(maxBlue < amount) {
-                            maxBlue = Number(amount);
-                        }
-                        break;
-                    case "red":
-                        if(maxRed < amount) {
-                            maxRed = Number(amount);
-                        }
-                        break;
-                    case "green":
-                        if(maxGreen < amount) {
-                            maxGreen = Number(amount);
-                        }
-                        break;
-                    default:
-                       console.error("Invalid color!");
-                       break;
-                }
-            });
-            sum += maxBlue * maxRed * maxGreen;
-        });
+const regex = /Game ([0-9]+)[:] ((?:[\s]?[0-9]+ (?:green|red|blue)[,|;]?)+)/;
+let sum = 0;
+input.forEach((element) => {
+    let isGameValid = true;
+    const matches = regex.exec(element);
+    const gameID = matches[1];
+    const groups = matches[2].split(/,|;/);
+    groups.forEach((pair) => {
+        const splitPair = pair.trim().split(/\s/);
+        const amount = splitPair[0];
+        const color = splitPair[1];
+        if((color === "red" && amount > 12) ||
+            (color === "green" && amount > 13) ||
+            (color === "blue" && amount > 14)) {
 
-        console.log(sum);
-    </script>
-</body>
-</html>
+            isGameValid = false;
+        }
+    });
+
+    if(isGameValid) {
+        sum += Number(gameID);
+    }
+});
+
+console.log(sum);
