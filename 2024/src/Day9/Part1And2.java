@@ -48,20 +48,21 @@ public class Part1And2 {
     private static void compactBlocksPart2(ArrayList<Integer> blocks) {
         ArrayList<Integer> file = new ArrayList<>();
         for(int i = blocks.size() - 1; i >= 0; i--) {
-            if(blocks.get(i) != -1) {
-                if(file.isEmpty() || file.getFirst() == blocks.get(i)) {
+                if(blocks.get(i) != -1 && (file.isEmpty() || file.getFirst() == blocks.get(i))) {
                     file.add(blocks.get(i));
-                } else if(blocks.indexOf(-1) < i) {
-                    System.out.println(file.size());
+                } else if(!file.isEmpty()){
                     int amountOfFreeSpace = 0;
-                    int j = blocks.indexOf(-1);
+                    int startingIndexOfFreeSpace = blocks.indexOf(-1);;
+                    int j = startingIndexOfFreeSpace;
                     while(blocks.get(j) == -1) {
                         j++;
                         amountOfFreeSpace++;
                     }
+
+                    file.clear();
                 }
-            }
         }
+        System.out.println(blocks);
     }
 
     private static long computeChecksum(ArrayList<Integer> compactedBlocks) {
