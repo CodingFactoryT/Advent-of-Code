@@ -1,13 +1,13 @@
 package Day9;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+// 6395800119709 too low
 public class Part1And2 {
     public static void main(String[] args) throws IOException {
         List<String> inputLines = Files.readAllLines(Path.of("./2024/src/Day9/input.txt"));
@@ -52,21 +52,25 @@ public class Part1And2 {
             if(blocks.get(i) != -1 && (file.isEmpty() || file.getFirst() == blocks.get(i))) {
                 file.add(blocks.get(i));
             } else if(!file.isEmpty()){
-                System.out.println(file);
-//                int index = getIndexOfNManyFreeSpaces(blocks, file.size(), i);
-//                if(index != -1) {
-//                    int startingIndexOfFile = i + 1;
-//                    System.out.println(startingIndexOfFile);
-//
-//                    for(int j = index, k = 0; j < index + file.size(); j++, k++) {
-//                        blocks.set(j, file.getFirst());
-//                        blocks.set(startingIndexOfFile + k, -1);
-//                    }
-//                }
+                swapIfPossible(blocks, file, i);
                 file.clear();
+                if(blocks.get(i) != -1) {
+                    i++;
+                }
             }
         }
-        System.out.println(blocks);
+        swapIfPossible(blocks, file, 0);
+    }
+
+    private static void swapIfPossible(ArrayList<Integer> blocks, ArrayList<Integer> file, int i) {
+        int index = getIndexOfNManyFreeSpaces(blocks, file.size(), i);
+        if(index != -1) {
+            int startingIndexOfFile = i + 1;
+            for(int j = index, k = 0; j < index + file.size(); j++, k++) {
+                blocks.set(j, file.getFirst());
+                blocks.set(startingIndexOfFile + k, -1);
+            }
+        }
     }
 
     private static int getIndexOfNManyFreeSpaces(ArrayList<Integer> blocks, int n, int max) {
