@@ -1,6 +1,7 @@
 package Day9;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -48,21 +49,43 @@ public class Part1And2 {
     private static void compactBlocksPart2(ArrayList<Integer> blocks) {
         ArrayList<Integer> file = new ArrayList<>();
         for(int i = blocks.size() - 1; i >= 0; i--) {
-                if(blocks.get(i) != -1 && (file.isEmpty() || file.getFirst() == blocks.get(i))) {
-                    file.add(blocks.get(i));
-                } else if(!file.isEmpty()){
-                    int amountOfFreeSpace = 0;
-                    int startingIndexOfFreeSpace = blocks.indexOf(-1);;
-                    int j = startingIndexOfFreeSpace;
-                    while(blocks.get(j) == -1) {
-                        j++;
-                        amountOfFreeSpace++;
-                    }
-
-                    file.clear();
-                }
+            if(blocks.get(i) != -1 && (file.isEmpty() || file.getFirst() == blocks.get(i))) {
+                file.add(blocks.get(i));
+            } else if(!file.isEmpty()){
+                System.out.println(file);
+//                int index = getIndexOfNManyFreeSpaces(blocks, file.size(), i);
+//                if(index != -1) {
+//                    int startingIndexOfFile = i + 1;
+//                    System.out.println(startingIndexOfFile);
+//
+//                    for(int j = index, k = 0; j < index + file.size(); j++, k++) {
+//                        blocks.set(j, file.getFirst());
+//                        blocks.set(startingIndexOfFile + k, -1);
+//                    }
+//                }
+                file.clear();
+            }
         }
         System.out.println(blocks);
+    }
+
+    private static int getIndexOfNManyFreeSpaces(ArrayList<Integer> blocks, int n, int max) {
+        int amountOfFreeSpaces = 0;
+        int index = 0;
+        for(int i = 0; i < max; i++) {
+            if(blocks.get(i) == -1) {
+                amountOfFreeSpaces++;
+                if(amountOfFreeSpaces >= n) {
+                    return index;
+                }
+            } else {
+                amountOfFreeSpaces = 0;
+                index = i + 1;
+            }
+        }
+
+        return -1;
+
     }
 
     private static long computeChecksum(ArrayList<Integer> compactedBlocks) {
