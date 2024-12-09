@@ -8,6 +8,7 @@ import java.util.Collections;
 import java.util.List;
 
 // 6395800119709 too low
+//files are splitted: [0, 9999, 9999, 9999, 9999, 1, 1, 2, 2, 9999, 9999, 9999, 9998, 3, 3, 3, 3, 3, 3, 9998, 9998, 9998, 4, 4, 4, 4, 4, 9997, 9997, 9997, 9997, 9996, 9996, 9996, 9996, 5, 9995, 6, 6, 6, 6, 6, 9995, 9995, 9995, 9995, 9995, 9995, 7, 9995, 9995, 9994, 9994, 9994, 8, 9994, 9994, 9994, 9994, 9994, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9994,
 public class Part1And2 {
     public static void main(String[] args) throws IOException {
         List<String> inputLines = Files.readAllLines(Path.of("./2024/src/Day9/input.txt"));
@@ -18,6 +19,7 @@ public class Part1And2 {
         ArrayList<Integer> blocksPart2 = parseInput(inputLines.getFirst());
         compactBlocksPart2(blocksPart2);
         System.out.println(computeChecksum(blocksPart2));
+        System.out.println(blocksPart2);
     }
 
     private static ArrayList<Integer> parseInput(String inputLine) {
