@@ -19,7 +19,6 @@ public class Part1And2 {
         ArrayList<Integer> blocksPart2 = parseInput(inputLines.getFirst());
         compactBlocksPart2(blocksPart2);
         System.out.println(computeChecksum(blocksPart2));
-        System.out.println(blocksPart2);
     }
 
     private static ArrayList<Integer> parseInput(String inputLine) {
@@ -50,18 +49,28 @@ public class Part1And2 {
 
     private static void compactBlocksPart2(ArrayList<Integer> blocks) {
         ArrayList<Integer> file = new ArrayList<>();
-        for(int i = blocks.size() - 1; i >= 0; i--) {
-            if(blocks.get(i) != -1 && (file.isEmpty() || file.getFirst() == blocks.get(i))) {
+        int i = blocks.size() - 1;
+        while(i >= 0) {
+            if(blocks.get(i) == -1) {
+                i--;
+                continue;
+            }
+            while(file.isEmpty() || file.getFirst() == blocks.get(i)) {
+                if(blocks.get(i) == -1) {
+                    break;
+                }
                 file.add(blocks.get(i));
-            } else if(!file.isEmpty()){
-                swapIfPossible(blocks, file, i);
-                file.clear();
-                if(blocks.get(i) != -1) {
-                    i++;
+                i--;
+                if(i < 0) {
+                    break;
                 }
             }
+            if(!file.isEmpty()) {
+                System.out.println(file);
+                swapIfPossible(blocks, file, i);
+                file.clear();
+            }
         }
-        swapIfPossible(blocks, file, file.size());
     }
 
     private static void swapIfPossible(ArrayList<Integer> blocks, ArrayList<Integer> file, int i) {
