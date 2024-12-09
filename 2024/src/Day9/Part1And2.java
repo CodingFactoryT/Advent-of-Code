@@ -59,7 +59,7 @@ public class Part1And2 {
                 }
             }
         }
-        swapIfPossible(blocks, file, 0);
+        swapIfPossible(blocks, file, file.size());
     }
 
     private static void swapIfPossible(ArrayList<Integer> blocks, ArrayList<Integer> file, int i) {
