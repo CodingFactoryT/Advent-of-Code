@@ -3,12 +3,10 @@ package Day9;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 // 6395800119709 too low
-//files are splitted: [0, 9999, 9999, 9999, 9999, 1, 1, 2, 2, 9999, 9999, 9999, 9998, 3, 3, 3, 3, 3, 3, 9998, 9998, 9998, 4, 4, 4, 4, 4, 9997, 9997, 9997, 9997, 9996, 9996, 9996, 9996, 5, 9995, 6, 6, 6, 6, 6, 9995, 9995, 9995, 9995, 9995, 9995, 7, 9995, 9995, 9994, 9994, 9994, 8, 9994, 9994, 9994, 9994, 9994, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9994,
+// 6418529554426 too high
 public class Part1And2 {
     public static void main(String[] args) throws IOException {
         List<String> inputLines = Files.readAllLines(Path.of("./2024/src/Day9/input.txt"));
@@ -48,6 +46,7 @@ public class Part1And2 {
     }
 
     private static void compactBlocksPart2(ArrayList<Integer> blocks) {
+        Set<Integer> alreadySeen = new HashSet<>();
         ArrayList<Integer> file = new ArrayList<>();
         int i = blocks.size() - 1;
         while(i >= 0) {
@@ -55,7 +54,7 @@ public class Part1And2 {
                 i--;
                 continue;
             }
-            while(file.isEmpty() || file.getFirst() == blocks.get(i)) {
+            while(file.isEmpty() || Objects.equals(file.getFirst(), blocks.get(i))) {
                 if(blocks.get(i) == -1) {
                     break;
                 }
@@ -66,11 +65,15 @@ public class Part1And2 {
                 }
             }
             if(!file.isEmpty()) {
-                System.out.println(file);
-                swapIfPossible(blocks, file, i);
+                if(!alreadySeen.contains(file.getFirst())) {
+                    swapIfPossible(blocks, file, i);
+                    alreadySeen.add(file.getFirst());
+                    System.out.println(file);
+                }
                 file.clear();
             }
         }
+        System.out.println(blocks);
     }
 
     private static void swapIfPossible(ArrayList<Integer> blocks, ArrayList<Integer> file, int i) {
