@@ -1,4 +1,4 @@
-package Day10;
+package Day10.Part1;
 
 
 import java.io.IOException;

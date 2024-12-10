@@ -1,13 +1,12 @@
-package Day10;
+package Day10.Part2;
 
 import java.awt.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class HeatMap {
     private final byte[][] heatMap;
-    public final HashMap<Point, ArrayList<Point>> trailHeadScores = new HashMap<>();
+    public final HashMap<Point, Integer> trailHeadScores = new HashMap<>();
 
     public HeatMap(byte[][] heatMap) {
         this.heatMap = heatMap;
@@ -23,10 +22,8 @@ public class HeatMap {
 
     private void setTrailHeadScore(Point trailHead, Point currentPosition) {
         byte currentHeight = getHeightAt(currentPosition);
-        if(currentHeight == 9 && !trailHeadScores.get(trailHead).contains(currentPosition)) {
-            ArrayList<Point> newList = trailHeadScores.get(trailHead);
-            newList.add(currentPosition);
-            trailHeadScores.put(trailHead, newList); //increase value at key by one
+        if(currentHeight == 9) {
+            trailHeadScores.put(trailHead, trailHeadScores.get(trailHead) + 1); //increase value at key by one
             return;
         }
 
@@ -63,7 +60,7 @@ public class HeatMap {
         for(int row = 0; row < heatMap.length; row++) {
             for(int col = 0; col < heatMap[0].length; col++) {
                 if(heatMap[row][col] == 0) {
-                    trailHeadScores.put(new Point(col, row), new ArrayList<>());
+                    trailHeadScores.put(new Point(col, row), 0);
                 }
             }
         }
@@ -71,8 +68,8 @@ public class HeatMap {
 
     public int getSummedTrailHeadScore() {
         int sum = 0;
-        for(ArrayList<Point> points: trailHeadScores.values()) {
-            sum += points.size();
+        for(Integer i: trailHeadScores.values()) {
+            sum += i;
         }
 
         return sum;
