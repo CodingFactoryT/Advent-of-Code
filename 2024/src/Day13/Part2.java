@@ -32,11 +32,7 @@ public class Part2 {
         while(inputIterator.hasNext()) {
             String currentLine = inputIterator.next();
             if(currentLine.isBlank()) {
-                double[][] A = new double[][]{{localGaussList.get(0), localGaussList.get(2)}, {localGaussList.get(1), localGaussList.get(3)}};
-                double[] x = new double[]{localGaussList.get(4), localGaussList.get(5)};
-                double[] gaussSolution = GaussianElimination.lsolve(A, x);
-                solvedGauss[index][0] = gaussSolution[0];
-                solvedGauss[index][1] = gaussSolution[1];
+                computeGauss(localGaussList, solvedGauss, index);
                 index++;
                 localGaussList.clear();
                 continue;
@@ -62,11 +58,7 @@ public class Part2 {
             }
         }
 
-        double[][] A = new double[][]{{localGaussList.get(0), localGaussList.get(2)}, {localGaussList.get(1), localGaussList.get(3)}};
-        double[] x = new double[]{localGaussList.get(4), localGaussList.get(5)};
-        double[] gaussSolution = GaussianElimination.lsolve(A, x);
-        solvedGauss[index][0] = gaussSolution[0];
-        solvedGauss[index][1] = gaussSolution[1];
+        computeGauss(localGaussList, solvedGauss, index);
 
         return solvedGauss;
     }
@@ -74,6 +66,15 @@ public class Part2 {
     private static boolean isEffectivelyLong(double number) {
         double tolerance = 1e-2;
         return Math.abs(number - Math.round(number)) < tolerance;
+    }
+
+
+    private static void computeGauss(ArrayList<Long> localGaussList, double[][] solvedGauss, int index) {
+        double[][] A = new double[][]{{localGaussList.get(0), localGaussList.get(2)}, {localGaussList.get(1), localGaussList.get(3)}};
+        double[] x = new double[]{localGaussList.get(4), localGaussList.get(5)};
+        double[] gaussSolution = GaussianElimination.lsolve(A, x);
+        solvedGauss[index][0] = gaussSolution[0];
+        solvedGauss[index][1] = gaussSolution[1];
     }
 
 }
