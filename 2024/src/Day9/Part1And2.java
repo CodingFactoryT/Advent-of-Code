@@ -5,8 +5,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
 
-// 6395800119709 too low
-// 6418529554426 too high
 public class Part1And2 {
     public static void main(String[] args) throws IOException {
         List<String> inputLines = Files.readAllLines(Path.of("./2024/src/Day9/input.txt"));
@@ -68,12 +66,10 @@ public class Part1And2 {
                 if(!alreadySeen.contains(file.getFirst())) {
                     swapIfPossible(blocks, file, i);
                     alreadySeen.add(file.getFirst());
-                    System.out.println(file);
                 }
                 file.clear();
             }
         }
-        System.out.println(blocks);
     }
 
     private static void swapIfPossible(ArrayList<Integer> blocks, ArrayList<Integer> file, int i) {
@@ -90,7 +86,7 @@ public class Part1And2 {
     private static int getIndexOfNManyFreeSpaces(ArrayList<Integer> blocks, int n, int max) {
         int amountOfFreeSpaces = 0;
         int index = 0;
-        for(int i = 0; i < max; i++) {
+        for(int i = 0; i <= max; i++) {
             if(blocks.get(i) == -1) {
                 amountOfFreeSpaces++;
                 if(amountOfFreeSpaces >= n) {
