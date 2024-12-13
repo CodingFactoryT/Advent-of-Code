@@ -1,4 +1,4 @@
-package src;
+package src.Day03;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -18,7 +18,7 @@ public class Day3 {
 		int index = 0;
 		int currentIndex = 0;
 		
-		for(int i = 0; i<inp.length; i++) {				//2D Array (input) gets filled with it´s values	
+		for(int i = 0; i<inp.length; i++) {				//2D Array (input) gets filled with itï¿½s values	
 			for(int j = 0; j<inp[i].length(); j++) {
 				input[i][j] = inp[i].charAt(j);
 			}			
@@ -42,7 +42,7 @@ public class Day3 {
 		int ind1=0, ind2=0, ind3=0, ind4=0, ind5=0;
 		int curInd1=0, curInd2=0, curInd3=0, curInd4=0, curInd5=0;
 		
-		for(int i = 0; i<inp.length; i++) {				//2D Array (input) gets filled with it´s values	
+		for(int i = 0; i<inp.length; i++) {				//2D Array (input) gets filled with itï¿½s values	
 			for(int j = 0; j<inp[i].length(); j++) {
 				input[i][j] = inp[i].charAt(j);
 			}			

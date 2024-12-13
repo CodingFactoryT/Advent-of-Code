@@ -1,4 +1,4 @@
-package src;
+package src.Day05;
 
 import java.io.IOException;
 import java.nio.file.Files;
