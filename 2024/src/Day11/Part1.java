@@ -11,7 +11,6 @@ public class Part1 {
     public static void main(String[] args) throws IOException {
         LinkedList<Long> list  = Arrays.stream(Arrays.stream(Files.readAllLines(Path.of("./2024/src/Day11/input.txt")).getFirst().split(" ")).mapToLong(Integer::parseInt).toArray()).boxed().collect(Collectors.toCollection(LinkedList::new));
         for(int i = 0; i < 25; i++) {
-            System.out.println(i);
             for(int j = 0; j < list.size(); j++) {
                 long number = list.get(j);
                 String stringNumber = String.valueOf(number);
