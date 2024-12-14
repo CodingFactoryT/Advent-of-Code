@@ -2,3 +2,9 @@
 Advent of Code.iml
 *input.txt
 *Input.txt
+/.idea/.gitignore
+/2024/2024.iml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/vcs.xml
