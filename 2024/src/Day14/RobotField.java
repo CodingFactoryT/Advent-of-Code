@@ -1,5 +1,6 @@
 package Day14;
 
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -62,4 +63,33 @@ public class RobotField {
 
         return safetyFactor;
     }
+
+    public BufferedImage getImageOfRobotField() {
+        BufferedImage img = null;
+        img = new BufferedImage(ROOM_WIDTH, ROOM_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+
+        for (int y = 0; y < ROOM_HEIGHT; y++)
+        {
+            for (int x = 0; x < ROOM_WIDTH; x++)
+            {
+                // generating values less than 256
+                int pixel = 0;
+                img.setRGB(x, y, pixel);
+            }
+        }
+
+        for(Robot robot : robots) {
+            int a = 255;
+            int r = 255;
+            int g = 255;
+            int b = 255;
+
+            //pixel
+            int pixel = (a<<24) | (r<<16) | (g<<8) | b;
+            img.setRGB((int) robot.getPosition().getX(), (int) robot.getPosition().getY(), pixel);
+        }
+
+        return img;
+    }
 }
+
