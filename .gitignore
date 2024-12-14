@@ -1,5 +1,6 @@
 .vs/
 Advent of Code.iml
+Advent-of-Code.iml
 *input.txt
 *Input.txt
 /.idea/.gitignore
@@ -8,3 +9,4 @@ Advent of Code.iml
 /.idea/modules.xml
 /.idea/inspectionProfiles/Project_Default.xml
 /.idea/vcs.xml
+out
